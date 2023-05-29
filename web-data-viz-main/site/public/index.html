@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANICAS | Home</title>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="website icon" type="png" href="assets/logoFuriaB.png">
+</head>
+<body>
+    <div class="navBar">
+        <div class="container">
+            <a href="index.html"><img src="./assets/logoManicas.png" alt=""></a>
+            <div class="caminhos">
+                <a href="sobre.html">SOBRE</a>
+                <a href="times.html">TIMES</a>
+                <a href="comunidade.html">COMUNIDADE</a>
+                <a href=""></a>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="carrosel">
+        <div class="container" id="img">
+            <img src="assets/bannerLoL.png" alt="">
+            <img src="assets/bannerQueens.png" alt="">
+            <img src="assets/bannerSprayIt.png" alt="">
+        </div>
+    </div>
+    <div class="conteudo">
+        <div class="container">
+            <div class="texto">
+                <h1>COMO SURGIU A FURIA?</h1>
+                <p>A organização é fruto da idealização do empresário Jaime Pádua, que já planejava investir nos esportes eletrônicos, e dos também empresários André Akkari (jogador de pôquer profissional) e Cris Guedes. Diante disso, a FURIA ganhou forma e caminhos.</p>
+                <div class="botao">
+                <a href="sobre.html">SAIBA MAIS</a>
+            </div>
+        </div>
+    </div>
+    <img src="assets/furiaEquipe.png" alt="">
+</div>
+
+<div class="logar">
+    <div class="container">
+        <div class="titulo">
+            <h2>ENTRE PARA A COMUNIDADE!</h2>
+        </div>
+        <div class="botao">
+            <a href="cadastro.html">Entrar</a>
+            
+        </div>
+    </div>
+</div>
+
+<div class="redes">
+    <h1>REDES SOCIAIS</h1>
+    <div class="container">
+
+        <div class="ig">
+        <a href="https://www.instagram.com/furiagg/"><img src="assets/iconInstagram.png" alt=""></a>
+        </div>
+
+        <div class="twt">
+        <a href="https://twitter.com/FURIA"><img src="assets/iconTwitter.png" alt=""></a>
+        </div>
+    </div>
+</div>
+
+    <!-- footer -->
+    <div class="footer">
+        <div class="container">
+            <p>©2023 Projeto para conclusão de semestre 1ADS | <a href="https://github.com/limataty">GitHub</a> | <a href="https://www.linkedin.com/in/limataty/">Linkedin</a> |</p>
+        </div>
+    </div>
+</body>
+</html>
+
+<!-- js para carrosel -->
+<script>
+    const imgs = document.getElementById("img");
+    const img = document.querySelectorAll("#img img");
+
+    let idx = 0;
+
+    function carrosel() {
+        idx++;
+
+        if (idx > img.length - 1) {
+            idx = 0;
+        }
+
+        imgs.style.transform = `translateX(${-idx * 100}%)`;
+    }
+    
+    setInterval(carrosel, 1800)
+
+</script>
+

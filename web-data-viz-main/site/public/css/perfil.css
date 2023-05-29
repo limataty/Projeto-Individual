@@ -1,0 +1,112 @@
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap');
+
+body {
+    font-family: 'oswald';
+    margin: 0;
+
+}
+.navBar {
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: white;
+
+}
+
+.navBar img {
+    height: 5vh;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navBar a{
+    font-size: 1.2rem;
+    color: #000000;
+    margin: 3vh;
+}
+
+
+.navBar .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-evenly;
+}
+
+.caminhos {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.titulo {
+    text-align: center;
+}
+.caixaPerfil {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.caixaPerfil .container {
+    border: 1.5px solid #d8d8d8;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 80%;
+}
+
+.caixaPerfil img {
+    border-radius: 100%;
+    width: 9%;
+    margin-top: 15px;
+}
+
+.nome p{
+    font-weight: 700;
+    font-size: 2rem;
+    text-transform: uppercase;
+    margin: 15px;
+}
+
+.nivel {
+    border: 1.5px solid #d8d8d8;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: row;
+    width: 80%;
+    margin: 0;
+    margin-right: 0;
+}
+
+.dash img{
+    width: 30%;
+    margin: 0;
+    margin-top: 20px;
+}
+
+.dash {
+    display: flex;
+    align-items: center;
+    width: 80%;
+    flex-direction: column;
+    width: 70%;
+}
+
+.dash p {
+    font-weight: 200;
+    font-size: 2rem;
+    margin: 0;
+}
+
+.levelTorcid {
+    width: 30%;
+    background-color: #D5E1F5;
+    padding: 30px;
+    margin: 0;
+}
+
+.levelTorcid h1, p {
+    text-align: center;
+}
