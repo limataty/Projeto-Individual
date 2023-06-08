@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MANICAS | Quiz</title>
+    <link rel="stylesheet" href="css/quiz.css">
+    <link rel="website icon" type="png" href="assets/logoFuriaB.png">
+</head>
+<body>
+<body>
+  <div id="containerQuiz">
+    <h1>Quiz</h1>
+    <div id="containerQuestion">
+      <h3 id="conteudo"></h3>
+      <ul id="options-list"></ul>
+      <button onclick="proxQuestion()">Próxima Pergunta</button>
+    </div>
+    <div id="containerResultado" style="display: none;">
+      <h2>Resultado</h2>
+      <p id="pontuacao"></p>
+      <p id="porcentagem"></p>
+    </div>
+  </div>
+
+  <script>
+    var questions = [
+    {
+       question: "Qual dos seguintes jogadores faz parte do time de CS:GO da FURIA?",
+       options: ["FNB", "KSCerato", "Ayu"],
+       answer: 1
+   },
+     {
+       question: "Em que ano surgiu a FURIA?",
+       options: ["2004", "2015", "2017"],
+       answer: 2
+     },
+     {
+       question: "Quantos títulos tem a equipe de CS:GO da FURIA?",
+       options: ["0", "4", "2"],
+       answer: 1
+     },
+     {
+       question: "Na final da chave inferior dos playoffs do CBLoL 2023, a FURIA foi eliminada por:",
+       options: ["LOUD", "RED Canids", "Los Grandes"],
+       answer: 2
+     },
+     {
+       question: "Das seguintes modalidades, qual a FURIA NÃO faz mais parte",
+       options: ["CS:GO", "R6", "Rocket League"],
+       answer: 1
+     },
+     {
+       question: "Atualmente, quantos membros integram a modalidade de skate da furia?",
+       options: ["São 2, Rayssa Leal e Lua Vicente", "Apenas 1, Lua Vicente", "0, A FURIA não têm skatistas"],
+       answer: 1
+     },
+     {
+       question: "Qual o nome da atual torcida organizada oficial da FURIA?",
+       options: ["Dezorganizada Furiosa B10", "Torcida Força Jovem", "Manicas"],
+       answer: 0
+     }
+   ];
+
+    var atualQuestaoIndex = 0;
+    var score = 0;
+
+    var quizContainer = document.getElementById("containerQuiz");
+    var questionContainer = document.getElementById("containerQuestion");
+    var resultContainer = document.getElementById("containerResultado");
+    var questionText = document.getElementById("conteudo");
+    var optionsList = document.getElementById("options-list");
+    var scoreText = document.getElementById("pontuacao");
+    var porcentagemText = document.getElementById("porcentagem");
+
+    function mostrarQuestion() {
+      var atualQuestion = questions[atualQuestaoIndex];
+
+      questionText.textContent = atualQuestion.question;
+
+      optionsList.innerHTML = "";
+      for (var i = 0; i < atualQuestion.options.length; i++) {
+        var option = atualQuestion.options[i];
+
+        var li = document.createElement("li");
+        var input = document.createElement("input");
+        input.type = "radio";
+        input.name = "answer";
+        input.value = i;
+
+        li.appendChild(input);
+        li.appendChild(document.createTextNode(option));
+
+        optionsList.appendChild(li);
+      }
+    }
+
+    function proxQuestion() {
+      var optionSelec = document.querySelector('input[name="answer"]:checked');
+
+      if (optionSelec) {
+        var answerSelec = parseInt(optionSelec.value);
+        var atualQuestion = questions[atualQuestaoIndex];
+
+        if (answerSelec === atualQuestion.answer) {
+          score++;
+        }
+
+        atualQuestaoIndex++;
+
+        if (atualQuestaoIndex < questions.length) {
+          mostrarQuestion();
+        } else {
+          mostrarResult();
+        }
+      }
+    }
+
+    function mostrarResult() {
+      var totalQuestions = questions.length;
+      var porcentagemR = (score / totalQuestions) * 100;
+
+      questionContainer.style.display = "none";
+      resultContainer.style.display = "block";
+
+      scoreText.textContent = "Você acertou " + score + " de " + totalQuestions + " perguntas.";
+      porcentagemText.textContent = "Porcentagem de acertos: " + porcentagemR.toFixed(2) + "%";
+    }
+
+    mostrarQuestion();
+  </script>
+</body>
+</html>
