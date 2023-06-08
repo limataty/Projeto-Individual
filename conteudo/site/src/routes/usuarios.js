@@ -20,4 +20,13 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
+router.post("/quiz", function (req, res) {
+    usuarioController.quiz(req, res);
+});
+
+router.get("/resultado", function (req, res) {
+    usuarioController.resultado(req, res);
+});
+
+
 module.exports = router;

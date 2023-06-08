@@ -31,7 +31,28 @@ function cadastrar(nome, email, senha) {
     return database.executar(instrucao);
 }
 
+function quiz() {
+    console.log("ACESSEI O USUARIO MODEL \n \n\t\t >> Se aqui der erro de 'Error: connect ECONNREFUSED',\n \t\t >> verifique suas credenciais de acesso ao banco\n \t\t >> e se o servidor de seu BD está rodando corretamente. \n\n function cadastrar():");
+    
+    var instrucao = `
+        INSERT INTO quiz VALUES (2,1,1);
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+
+function resultado() {
+    var instrucao = `
+        SELECT quizID FROM quiz;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
+    resultado,
+    quiz,
     entrar,
     cadastrar,
     listar,
