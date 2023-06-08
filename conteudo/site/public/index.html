@@ -24,9 +24,9 @@
 
     <div class="carrosel">
         <div class="container" id="img">
-            <img src="assets/bannerLoL.png" alt="">
-            <img src="assets/bannerQueens.png" alt="">
-            <img src="assets/bannerSprayIt.png" alt="">
+            <img onclick="imgLol()" src="assets/bannerLoL.png" alt="">
+            <img onclick="imgDoc()" src="assets/bannerQueens.png" alt="">
+            <img onclick="imgCol()" src="assets/bannerSprayIt.png" alt="">
         </div>
     </div>
     <div class="conteudo">
@@ -96,5 +96,17 @@
     
     setInterval(carrosel, 1800)
 
+
+    function imgLol() {
+        window.location = "times.html"
+    }
+
+    function imgDoc() {
+        window.location = ""
+    }
+
+    function imgCol() {
+        window.location = "https://www.furia.gg/spray-it"
+    }
 </script>
 
