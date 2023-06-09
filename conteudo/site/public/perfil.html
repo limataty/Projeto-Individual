@@ -1,136 +1,214 @@
 <!DOCTYPE html>
-<html lang="pt-br">
-
+<html lang="en">
 <head>
-    <link rel="shortcut icon" href="../assets/icon/favicon2.png" type="image">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>MANICAS | Perfil</title>
     <link rel="stylesheet" href="css/perfil.css">
     <link rel="website icon" href="assets/logoFuriaB.png">
-
+    
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script src="../js/funcoes.js"></script>
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
 </head>
-
 <body>
-
-    <div class="navBar">
-        <div class="container">
-            <a href="index.html"><img src="./assets/logoManicas.png" alt=""></a>
-            <div class="caminhos">
-                <a href="sobre.html">SOBRE</a>
-                <a href="times.html">TIMES</a>
-                <a href="comunidade.html">COMUNIDADE</a>
-            </div>
-        </div>
-    </div>
-
-    <div class="titulo">
-        <h1>PERFIL DE TORCEDOR</h1>
-    </div>
-
-<div class="conteudoPerfil">
-    <div class="caixaPerfil">
-        <div class="container">
-            <img src="assets/mascoteFuria.png" alt="">
-            <div class="nome">
-                <p>Olá, <span id="b_usuario">usuário</span>!</p>
-            </div>
-        </div>
-        <div class="nivel">
-            <div class="dash">
-                <a href="quiz.html"> <img src="assets/tituloTimes.png" alt=""> </a>
-                <p>DASHBOARD</p>
-            </div>
-            <div class="levelTorcid">
-                <h1>LEVEL: N° - Lorem ipsum </h1>
-                <p>dolor sit amet consectetur adipisicing elit. Nesciunt, facere quo. Ipsa, mollitia labore? Quod hic ab, expedita animi consequuntur provident quidem? Maxime laboriosam voluptatem labore architecto consequatur velit omnis.</p>
-            </div>
+   
+  <div class="navBar">
+    <div class="container">
+        <a href="index.html"><img src="./assets/logoManicas.png" alt=""></a>
+        <div class="caminhos">
+            <a href="sobre.html">SOBRE</a>
+            <a href="times.html">TIMES</a>
+            <a href="comunidade.html">COMUNIDADE</a>
         </div>
     </div>
 </div>
 
-<div id="teste">ihjohghljç</div>
+<div id="msg"></div>
+
+<div class="titulo">
+  <h1>PERFIL DE TORCEDOR</h1>
+</div>
 
 
-  <div>
-    <canvas id="myChart"></canvas>
+<div class="conteudoPerfil">
+  <div class="caixaPerfil">
+      <div class="container">
+          <img src="assets/mascoteFuria.png" alt="">
+          <div class="nome">
+              <p>Olá, <span id="b_usuario">usuário</span>!</p>
+          </div>
+      </div>
+      <div class="nivel">
+          <div class="dash">
+              <a href="quiz.html"> <img src="assets/tituloTimes.png" alt=""> </a>
+              <p><a href="quiz.html">PLAY</a></p>
+              <div da></div>
+          </div>
   </div>
+</div>
 
-  <button onclick="quiz()">quiz</button>
-  
+       
+    <div>
+
+      <h3><i>Vote no seu time favorito</i></h3>
+      <div>
+
+          <div>
+            <button onclick="votar_time()">Votar time favorito</button>
+            <select id="sel_time">
+              <option value="LOL">LOL</option>
+              <option value="R6">R6</option>
+              <option value="VALORANT">VALORANT</option>
+              <option value="ROCKET LEGUE">ROCKET LEGUE</option>
+              <option value="XADREZ">XADREZ</option>
+              <option value="SKATE">SKATE</option>
+              <option value="COUNTER-STRIKE">CS:GO</option>
+              <option value="R1">R1</option>
+              <option value="APEX">APEX</option>
+              <option value="CS:GO FEM">CS:GO FEM</option>
+            </select>
+         
+            <canvas id="canvas_time" style="height:40px; width:150px" ></canvas>
+
+          </div>
+
+          
+      </div>
+     
+
+          </div>
+         
 </body>
-
 </html>
 <script>
 
-  var questionario = [];
-  var usuario = sessionStorage.ID_USUARIO
- 
-      console.log('Cheguei na funcao resultado')
-      fetch('/usuarios/resultado', {
+    mostrarVotos();
+      
+    var id = sessionStorage.ID_USUARIO
+    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    var time = document.getElementById('canvas_time');
+     
+    var lista_time = [];
+    var lista_votos = [];
+
+      function votar_time() {
+
+      var timeVar = sel_time.value;
+
+      console.log("print traje",timeVar);
+      fetch(`/usuarios/votar_time/${timeVar}${id}`,{ 
+        method:"POST",
+        headers:{
+          "Content-type": "application/json"
+        },
+        body: JSON.stringify({
+              timeServer: timeVar,
+              usuarioServer: id,
+
+            })
+        
+          }).then(function (resposta) {
+          console.log('Chegou no then');
+          mostrarVotos();
+          window.location.reload()
+          }).catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+          });
+                    
+        }
+
+
+  function mostrarVotos() {
+    
+    console.log('Cheguei na funcao mostrarVotos')
+    fetch(`/usuarios/mostrarVotos`, {
          method: "GET",
          headers: {
              "Content-type": "application/json"
-         },       
-      }).then( function (resposta) {
-      
-      console.log(resposta)
-      const lista =  resposta.json()
+         },
+         
+        }).then(async function (resposta) {
+       console.log(resposta)
+       console.log('estou no then da mostrarVotos')
+       const vetor = await resposta.json()
 
          
-         for (i = 0; i < lista.length; i++) {
-           var registro = lista[i];
-       }   
-        
-      })
+         for (i = 0; i < vetor.length; i++) {
+           var registro = vetor[i];
+           lista_time.push(registro.times);
+           lista_votos.push(registro.votos);
 
+       }  
+
+      
+           
+           var inicio = 0
+
+          
+while (inicio < lista_votos.length) {
+    for (var i = 0; i < lista_votos.length; i++) {
+        var proximo = i + 1
+       
+    }
+    inicio++
+            
+    if (lista_votos[1] > lista_votos[0] || lista_votos[1] > lista_votos[2] || 
+    lista_votos[1] > lista_votos[3]
+    || lista_votos[1] > lista_votos[4] ) {
+      msg.innerHTML = `FPS é o genero mais popular no momento`
+    }
+    else if (lista_votos[0] > lista_votos[1] || lista_votos[0] > lista_votos[2] || 
+    lista_votos[0] > lista_votos[3]
+    || lista_votos[0] > lista_votos[4]){
+      msg.innerHTML = `LOL continua popular`
+    }
+    else if (lista_votos[2] > lista_votos[1] || lista_votos[2] > lista_votos[0] || lista_votos[2] > lista_votos[3]
+    || lista_votos[2] > lista_votos[4]){
+      msg.innerHTML = `As pessoas estão jogando muito Rocket Legue`
+    }
+    else if (lista_votos[3] > lista_votos[1] || lista_votos[3] > lista_votos[2] || lista_votos[3] > lista_votos[30]
+    || lista_votos[3] > lista_votos[4]){
+      msg.innerHTML = `Valorant ainda está em alta`
+    }
+    else if (lista_votos[4] > lista_votos[1] || lista_votos[4] > lista_votos[2] || lista_votos[4] > lista_votos[3]
+    || lista_votos[4] > lista_votos[40]){
+      msg.innerHTML = `Xadrez continua sendo admiriado`
+    }
+           
+}
+       
+       grafico =  new Chart(time,{
+        type: 'bar',
+        data: {
+          labels: lista_time,
+          datasets: [{
+            label: 'times' , 
+            data: lista_votos,
+            borderColor: 'black',
+            backgroundColor: 'darkblue',
+            borderWidth: 1,},
     
-
-      function quiz() {
-                                
-        fetch(`/usuarios/quiz`,{ 
-        method:"POST",
-        headers:{
-        "Content-type": "application/json"
+          ]
         },
-        body: JSON.stringify({
-          usuarioServer: usuario,
-        
-        })
-        }).then(function (resposta) {
-        console.log('Chegou no then');
-        }).catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        });
-        console.log('fim do then')
-        };   
+        options: { 
+          indexAxis: 'y',
 
-    const ctx = document.getElementById('myChart');
+          scales: {
+            y: {
+              beginAtZero: true
+            },
+
+          }
+          
+        },
+      });
+      
     
-    new Chart(ctx, {
-       type: 'bar',
-       data: {
-         labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
-         datasets: [{
-           label: '# of Votes',
-           data: [12, 19, 3, 5, 2, 3],
-           borderWidth: 1
-         }]
-       },
-       options: {
-         scales: {
-           y: {
-             beginAtZero: true
-           }
-         }
-       }
-     });
 
-
-  </script>
+        })
+      }
+  
+    </script>

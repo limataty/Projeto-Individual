@@ -94,50 +94,47 @@ function cadastrar(req, res) {
     }
 }
 
+function votar_time(req, res) {
 
-function quiz(req, res) {
-    // Crie uma variável que vá recuperar os valores do arquivo cadastro.html
+    var time = req.body.timeServer;
     var usuario = req.body.usuarioServer;
+    usuarioModel.votar_time(time,usuario)
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    )
+    .catch(
+        function (erro) {
+            console.log(erro);
+            console.log("Houve um erro ao realizar o post:", erro.sqlMessage);
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
+
+function mostrarVotos(req, res) {
+    usuarioModel.mostrarVotos()
+        .then(function (resultado) {
+            if (resultado.length > 0) {
+                res.status(200).json(resultado);
+            } else {
+                res.status(204).send("Nenhum resultado encontrado!")
+            }
+        }).catch(
+            function (erro) {
+                console.log(erro);
+                console.log("Houve um erro ao realizar a consulta! Erro: ", erro.sqlMessage);
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+}
 
 
-        
-        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.quiz(usuario)
-            .then(
-                function (resultado) {
-                    res.json(resultado);
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    console.log(
-                        "\nHouve um erro ao realizar o cadastro! Erro: ",
-                        erro.sqlMessage
-                    );
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
-
-    function resultado(req, res) {
-   
-        usuarioModel.resultado()
-            .then(
-                function (resultado) {
-                    console.log(`\nResultados encontrados: ${resultado.length}`);
-                    console.log(`Resultados: ${JSON.stringify(resultado)}`); // transforma JSON em String
-                }
-            ).catch(
-                function (erro) {
-                    console.log(erro);
-                    res.status(500).json(erro.sqlMessage);
-                }
-            );
-    }
 
 module.exports = {
-    resultado,
-    quiz,
+    mostrarVotos,
+    votar_time,
     entrar,
     cadastrar,
     listar,

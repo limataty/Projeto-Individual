@@ -121,6 +121,23 @@
       var totalQuestions = questions.length;
       var porcentagemR = (score / totalQuestions) * 100;
 
+      if (porcentagemR < 15) {
+        alert ('parece que você é um fan novo')
+      } else if (porcentagemR < 30){
+        alert ('Você conhece a Furia')
+      } else if (porcentagemR < 45){
+        alert ('Você acompanha a Furia')
+      } else if (porcentagemR < 60){
+        alert ('Você Tem um bom gosto')
+      } else if (porcentagemR < 75){
+        alert ('Você é fan da Furia')
+      } else if (porcentagemR < 90){
+        alert ('Você vive pela Furia')
+      } else if (porcentagemR <=100){
+        alert ('Você faz parte do manicômio a Furia')
+      }
+
+    
       questionContainer.style.display = "none";
       resultContainer.style.display = "block";
 

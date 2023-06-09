@@ -20,13 +20,12 @@ router.post("/autenticar", function (req, res) {
     usuarioController.entrar(req, res);
 });
 
-router.post("/quiz", function (req, res) {
-    usuarioController.quiz(req, res);
+router.post("/votar_time/:votos", function (req, res) {
+    usuarioController.votar_time(req, res);
 });
 
-router.get("/resultado", function (req, res) {
-    usuarioController.resultado(req, res);
+router.get("/mostrarVotos", function (req, res) {
+    usuarioController.mostrarVotos(req, res);
 });
-
 
 module.exports = router;

@@ -17,10 +17,8 @@ senha varchar(50)
 );
 
 CREATE TABLE quiz (
-quizID int primary key auto_increment, 
-QtdAcertos int,
-fkUsuario INT,
-CONSTRAINT fkUsuario FOREIGN KEY (fkUsuario) REFERENCES usuario (idCadastro)
+fkUsuario int primary key, 
+PorcentagemAcerto int
 );
 
 /*
