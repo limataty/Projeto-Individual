@@ -76,14 +76,20 @@ a {
     margin-right: 5px;
 }
 
+.conteudo p {
+    font-weight: 300;
+}
+
 .conheca {
     display: flex;
     flex-direction: row;
     margin-bottom: 50px;
+    align-items: center;
 }
 
 .conheca img {
-    width: 30%;
+    width: 40vw;
+    height: 35vh;
     box-shadow: 2px 2px 4px black;
 }
 
@@ -94,19 +100,24 @@ a {
 .surgiu {
     display: flex;
     margin-bottom: 50px;
+    align-items: center;
 }
 
 .surgiu img {
-    width: 30%;
+    width: 40vw;
+    height: 35vh;
     margin-right: 30px;
     box-shadow: 2px 2px 4px black;
 }
 
 .sobreMim {
     display: flex;
+    align-items: center;
 }
 
 .sobreMim img{
+    width: 45vw;
+    height: 40vh;
     width: 30%;
     margin-left: 15px;
     box-shadow: 2px 2px 4px black;
@@ -126,5 +137,5 @@ a {
     margin: 0;
     color: #ffffff;
     font-weight: 200;
-    font-size: 20px;
+    font-size: 15px;
 }

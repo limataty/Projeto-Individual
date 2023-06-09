@@ -10,17 +10,23 @@
 </head>
 <body>
 <body>
+
   <div id="containerQuiz">
     <h1>Quiz</h1>
     <div id="containerQuestion">
       <h3 id="conteudo"></h3>
       <ul id="options-list"></ul>
-      <button onclick="proxQuestion()">Próxima Pergunta</button>
+      <button onclick="voltarPerfil()">PERFIL</button>
+      <button onclick="proxQuestion()">NEXT > </button>
     </div>
     <div id="containerResultado" style="display: none;">
       <h2>Resultado</h2>
       <p id="pontuacao"></p>
       <p id="porcentagem"></p>
+      <div id="botoesOPC">
+          <a href="perfil.html">VOLTAR</a>
+          <a href="quiz.html">RESTART</a>
+      </div>
     </div>
   </div>
 
@@ -115,6 +121,10 @@
           mostrarResult();
         }
       }
+    }
+
+    function voltarPerfil() {
+      window.location = "perfil.html"
     }
 
     function mostrarResult() {

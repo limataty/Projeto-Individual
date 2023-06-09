@@ -75,18 +75,19 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: row;
+    flex-direction: column;
     width: 80%;
     margin: 0;
     margin-right: 0;
+
 }
 
-.dash img{
+.game img{
     width: 300px;
     margin: 0;
 }
 
-.dash {
+.game {
     display: flex;
     align-items: center;
     width: 80%;
@@ -94,10 +95,33 @@ a {
     width: 70%;
 }
 
-.dash p {
-    font-weight: 200;
-    font-size: 2rem;
+.botao a {
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 1.5rem;
     margin: 0;
+}
+
+.botao {
+    background-color: #26366b;
+    width: 120px;
+    height: 50px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    box-shadow: inset -1px 3px 19px 0px #061036;
+}
+
+#msg {
+    margin: 20px;
+    padding: 10px;
+    background-color: #d6d6d6;
+    font-weight: 500;
+    font-size: 17px;
+    color: rgb(68, 68, 68);
+    width: 15%;
+    text-align: center;
 }
 
 .levelTorcid {
@@ -109,4 +133,30 @@ a {
 
 .levelTorcid h1, p {
     text-align: center;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.titulo {
+    padding-top: 30px;
+    margin: 0;
+}
+
+.grafico button {
+    font-family: 'Oswald';
+    border: 0;
+    font-weight: 700;
+    height: 25px;
+    cursor: pointer;
+    background-color: #aeaeae;
+}
+
+.grafico select{
+    font-family: 'Oswald';
+    border-radius: 0;
+    height: 30px
 }

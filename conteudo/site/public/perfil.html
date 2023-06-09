@@ -25,7 +25,7 @@
     </div>
 </div>
 
-<div id="msg"></div>
+
 
 <div class="titulo">
   <h1>PERFIL DE TORCEDOR</h1>
@@ -41,22 +41,26 @@
           </div>
       </div>
       <div class="nivel">
-          <div class="dash">
-              <a href="quiz.html"> <img src="assets/tituloTimes.png" alt=""> </a>
-              <p><a href="quiz.html">PLAY</a></p>
+          <div class="game">
+              <img src="assets/tituloTimes.png" alt="">
               <div da></div>
-          </div>
+            </div>
+            <div class="botao">
+              <a href="quiz.html">PLAY</a>
+            </div>
+            <div id="msg"></div>
   </div>
 </div>
 
        
     <div>
-
-      <h3><i>Vote no seu time favorito</i></h3>
+      <div class="dashboard">
+        <div class="titulo">
+          <h2>SELECIONE SUA LINE FAVORITA</h2>
+        </div>
       <div>
 
-          <div>
-            <button onclick="votar_time()">Votar time favorito</button>
+          <div class="grafico">
             <select id="sel_time">
               <option value="LOL">LOL</option>
               <option value="R6">R6</option>
@@ -69,13 +73,14 @@
               <option value="APEX">APEX</option>
               <option value="CS:GO FEM">CS:GO FEM</option>
             </select>
+            <button onclick="votar_time()">ENVIAR <img src="assets/aviaozinho.png" alt=""></button>
+
+          </div>
+          </div>
          
             <canvas id="canvas_time" style="height:40px; width:150px" ></canvas>
 
           </div>
-
-          
-      </div>
      
 
           </div>
@@ -98,7 +103,7 @@
 
       var timeVar = sel_time.value;
 
-      console.log("print traje",timeVar);
+      console.log("print time",timeVar);
       fetch(`/usuarios/votar_time/${timeVar}${id}`,{ 
         method:"POST",
         headers:{
