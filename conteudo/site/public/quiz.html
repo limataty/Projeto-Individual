@@ -8,9 +8,7 @@
     <link rel="stylesheet" href="css/quiz.css">
     <link rel="website icon" type="png" href="assets/logoFuriaB.png">
 </head>
-<body>
-<body>
-
+<body onload="receberRespostas()">
   <div id="containerQuiz">
     <h1>Quiz</h1>
     <div id="containerQuestion">
@@ -28,8 +26,16 @@
           <a href="quiz.html">RESTART</a>
       </div>
     </div>
-  </div>
+      <div id="respQuiz"> 
+        <canvas id="graficoQuiz">  
+      </div>
 
+
+    </canvas>
+  </div>
+</body>
+</html>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script>
     var questions = [
     {
@@ -132,7 +138,7 @@
       var porcentagemR = (score / totalQuestions) * 100;
 
       if (porcentagemR < 15) {
-        alert ('parece que você é um fan novo')
+        alert ('parece que você é um torcedor novo')
       } else if (porcentagemR < 30){
         alert ('Você conhece a Furia')
       } else if (porcentagemR < 45){
@@ -140,11 +146,11 @@
       } else if (porcentagemR < 60){
         alert ('Você Tem um bom gosto')
       } else if (porcentagemR < 75){
-        alert ('Você é fan da Furia')
+        alert ('Você é torcedor da Furia')
       } else if (porcentagemR < 90){
-        alert ('Você vive pela Furia')
+        alert ('UAU você conhece muito bem a Furia')
       } else if (porcentagemR <=100){
-        alert ('Você faz parte do manicômio a Furia')
+        alert ('Você faz parte do manicômio a Furia?')
       }
 
     
@@ -153,9 +159,205 @@
 
       scoreText.textContent = "Você acertou " + score + " de " + totalQuestions + " perguntas.";
       porcentagemText.textContent = "Porcentagem de acertos: " + porcentagemR.toFixed(2) + "%";
-    }
+
+    fetch("/usuarios/enviarDados", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            scoreServer: score,
+            idServer: sessionStorage.ID_USUARIO,
+        })
+    })
+
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN DO Ellie()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+                    quizG()
+
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar enviar o grafico dados!");
+
+
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    return false;
+}
 
     mostrarQuestion();
+
+    var quizVetor = []
+    function quizG() {
+      containerQuestion.style.display = "none"
+      respQuiz.style.display = "flex" 
+
+      
+  fetch("/usuarios/quiz", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    // body: JSON.stringify({
+    // idUsuarioServer: sessionStorage.ID_USUARIO
+    // })
+  })
+    .then(function (resposta) {
+      console.log("ESTOU NO THEN DO Ellie()!")
+
+      if (resposta.ok) {
+        console.log(resposta);
+
+        resposta.json().then(json => {
+          console.log(json);
+          console.log(JSON.stringify(json));
+
+          for (var i = 0; i < json.length; i++) {
+           labels_linha[i] = json[i].nome
+           quizVetor[i] = json[i].QtdAcertos;
+          }
+
+          grafico_quiz.update()
+
+
+        });
+      } else {
+        console.log("Houve um erro ao tentar enviar o grafico dados!");
+        resposta.text().then(texto => {
+          console.error(texto);
+        });
+      }
+    }).catch(function (erro) {
+      console.log(erro);
+    })
+  return false;
+    }
+
+    function receberRespostas() {
+    fetch("/usuarios/receberRespostas", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        }, 
+        body: JSON.stringify({
+    idUsuarioServer: sessionStorage.ID_USUARIO
+    })
+  })
+
+        .then(function (resposta) {
+            console.log("ESTOU NO THEN()!")
+
+            if (resposta.ok) {
+                console.log(resposta);
+
+                resposta.json().then(json => {
+                    console.log(json);
+                    console.log(JSON.stringify(json));
+            if (json.length > 0) {
+              quizG()
+            }
+
+                });
+
+            } else {
+
+                console.log("Houve um erro ao tentar enviar o grafico dados!");
+
+
+
+                resposta.text().then(texto => {
+                    console.error(texto);
+                });
+            }
+
+        }).catch(function (erro) {
+            console.log(erro);
+        })
+    return false;
+}
+
+// aqui começa o codigo do grafico
+    const labels_linha = [
+    
+];
+
+
+
+const graficoQuiz = document.getElementById("graficoQuiz")
+// A CONSTANTE ABAIXO RECEBERÁ FUTURAMENTE OS VALORES DO ARDUÍNO, ATUALMENTE SÃO VALORES MANUAIS PARA DEMOSNTRAÇÃO.
+const dataQuiz = {
+  labels: labels_linha,
+  datasets: [{
+      label: 'Acertos',
+      data: quizVetor,
+      backgroundColor: '#28529090',
+      borderColor: '#285290',
+      borderWidth: 2
+  }
+  ]
+};
+
+const quizConfig = {
+  type: 'bar',
+  data: dataQuiz,
+  options: {
+      maintainAspectRatio: false,
+      
+      scales: {
+          y: {
+              ticks: {
+                  beginAtZero: true,
+                  color: 'white',
+                  font: {
+                      size: 18,
+                      family: 'Oswald',
+                      weight: 500
+                  }
+              },
+          },
+          x: {
+              ticks: {
+                  color: 'white',
+                  font: {
+                      size: 18,
+                      family: 'Oswald',
+                      weight: 500
+                  }
+              }
+          }
+      },
+      plugins: {
+  legend: {
+              labels: {
+                  color:'white',
+                  font: {
+                      size: 18,
+                      family: 'Montserrat Ace',
+                      weight: 500
+                  }
+              }
+          }
+      }
+  }
+};
+
+const grafico_quiz = new Chart(graficoQuiz, quizConfig);
   </script>
-</body>
-</html>
+

@@ -50,10 +50,36 @@ function mostrarVotos() {
     return database.executar(instrucao);
 }
 
+function quiz (){
+    var instrucao = `
+    select usuario.nome, quiz.* from quiz join usuario on  fkUsuario = idCadastro;`
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function enviarDados (score, id){
+    var instrucao = `
+    INSERT INTO quiz (QtdAcertos, fkUsuario) VALUES ('${score}', '${id}');
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function receberRespostas (id){
+    var instrucao = `
+    select * from quiz where fkUsuario = ${id}
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     mostrarVotos,
     votar_time,
     entrar,
     cadastrar,
     listar,
+    quiz,
+    enviarDados,
+    receberRespostas
 };

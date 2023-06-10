@@ -28,4 +28,18 @@ router.get("/mostrarVotos", function (req, res) {
     usuarioController.mostrarVotos(req, res);
 });
 
+router.post("/quiz", function (req, res) {
+    usuarioController.quiz(req, res);
+});
+
+router.post("/enviarDados", function (req, res) {
+    usuarioController.enviarDados(req, res);
+});
+
+router.post("/receberRespostas", function (req, res) {
+    usuarioController.receberRespostas(req, res);
+});
+
+
+
 module.exports = router;

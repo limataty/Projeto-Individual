@@ -130,7 +130,63 @@ function mostrarVotos(req, res) {
         );
 }
 
+function quiz (req, res){
+    usuarioModel.quiz()
+    .then(
+        function (resultado) {
+            res.json(resultado);
+        }
+    ).catch(
+        function (erro) {
+            console.log(erro);
+            console.log(
+                "\nHouve um erro ao realizar o cadastro! Erro: ",
+                erro.sqlMessage
+            );
+            res.status(500).json(erro.sqlMessage);
+        }
+    );
+}
 
+function enviarDados (req, res){
+    var score = req.body.scoreServer;
+    var id = req.body.idServer;
+        // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
+        usuarioModel.enviarDados(score, id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
+
+    function receberRespostas (req, res){
+        var id = req.body.idUsuarioServer
+        usuarioModel.receberRespostas(id)
+        .then(
+            function (resultado) {
+                res.json(resultado);
+            }
+        ).catch(
+            function (erro) {
+                console.log(erro);
+                console.log(
+                    "\nHouve um erro ao realizar o cadastro! Erro: ",
+                    erro.sqlMessage
+                );
+                res.status(500).json(erro.sqlMessage);
+            }
+        );
+    }
 
 module.exports = {
     mostrarVotos,
@@ -138,5 +194,9 @@ module.exports = {
     entrar,
     cadastrar,
     listar,
-    testar
+    testar,
+    quiz,
+    enviarDados,
+    receberRespostas
 }
+
